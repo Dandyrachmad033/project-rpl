@@ -3,20 +3,19 @@ import 'home.dart';
 import 'data_penjualan.dart';
 
 class Navigation_bar extends StatefulWidget {
-  
-
   @override
   State<Navigation_bar> createState() => _Navigation_barState();
 }
 
 class _Navigation_barState extends State<Navigation_bar> {
-  final List Screen_change = [Home(),Penjualan()];
+  final List Screen_change = [Home(), Penjualan()];
   int _selectedIndex = 0;
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,6 +38,6 @@ class _Navigation_barState extends State<Navigation_bar> {
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
-    ) ;
+    );
   }
 }
