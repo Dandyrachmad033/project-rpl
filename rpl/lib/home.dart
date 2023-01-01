@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:rpl/controller/auth_controller.dart';
 import 'data_penjualan.dart';
 import 'navibar.dart';
+import 'data_keuangan.dart';
+import 'data_stock.dart';
 
 class Home extends StatelessWidget {
   final authC = Get.find<AuthController>();
@@ -12,7 +14,7 @@ class Home extends StatelessWidget {
     'Stock Barang'
   ];
   final List<int> colorCodes = [600, 400, 200];
-  final List screens = ['askd', Penjualan(), 'asjd'];
+  final List screens = [Keuangan(), Penjualan(), 'asjd'];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +56,9 @@ class Home extends StatelessWidget {
               Column(
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(Keuangan());
+                    },
                     child: Container(
                       height: 150,
                       margin: EdgeInsets.all(10),
@@ -85,7 +89,9 @@ class Home extends StatelessWidget {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      Get.to(Data_stock());
+                    },
                     child: Container(
                       height: 150,
                       margin: EdgeInsets.all(10),
