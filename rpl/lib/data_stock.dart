@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:rpl/controller/auth_controller.dart';
+import 'package:rpl/widget/primary_button.dart';
 import 'home.dart';
 import 'add_stock.dart';
+
 class Data_stock extends StatefulWidget {
   const Data_stock({super.key});
 
@@ -9,6 +13,7 @@ class Data_stock extends StatefulWidget {
 }
 
 class _Data_stockState extends State<Data_stock> {
+  final authC = Get.find<AuthController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,16 +52,40 @@ class _Data_stockState extends State<Data_stock> {
                     SizedBox(
                       width: 30,
                     ),
-
-                    TextButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Add_stock()));
-                    }, child: new Text('new', style: TextStyle(color: Colors.green, fontSize: 20),)),
-                    
+                    TextButton(
+                        onPressed: () {
+                          if (authC.emailUser != 'marketing@gmail.com' &&
+                              authC.emailUser != 'admin@gmail.com') {
+                            Get.to(Add_stock());
+                          } else {
+                            Get.defaultDialog(
+                              title: "Warning, Tidak Bisa Mengolah Data!",
+                              middleText:
+                                  "Kamu bukan anggota yang bisa mengolah data stok!",
+                              backgroundColor: Colors.white,
+                              buttonColor: Colors.green[200],
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 20),
+                              confirm: GestureDetector(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: PrimaryButton(
+                                  title: "okei",
+                                  width: 100.0,
+                                  height: 30.0,
+                                ),
+                              ),
+                            );
+                          }
+                        },
+                        child: new Text(
+                          'new',
+                          style: TextStyle(color: Colors.green, fontSize: 20),
+                        )),
                   ],
                 ),
               ),
-             
-            
             ],
           ),
         ),

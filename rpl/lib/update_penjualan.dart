@@ -1,15 +1,37 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:rpl/controller/database_controller.dart';
 
-class Input_data extends StatefulWidget {
-  const Input_data({super.key});
+class Update_Data extends StatefulWidget {
+  Update_Data(
+      {Key? key,
+      required this.namaCustomer,
+      required this.alamat,
+      required this.noHp,
+      required this.namaBarang,
+      required this.kode,
+      required this.jenis,
+      required this.harga,
+      required this.jumlah})
+      : super(key: key);
+  final String namaCustomer;
+  final String alamat;
+  final String noHp;
+  final String namaBarang;
+  final String kode;
+  final String jenis;
+  final int harga;
+  final int jumlah;
 
   @override
-  State<Input_data> createState() => _Input_dataState();
+  State<Update_Data> createState() => _Update_DataState();
 }
 
-class _Input_dataState extends State<Input_data> {
+class _Update_DataState extends State<Update_Data> {
+  String namaEdit = '';
   final namaCustomer = TextEditingController();
   final alamat = TextEditingController();
   final noHp = TextEditingController();
@@ -20,6 +42,23 @@ class _Input_dataState extends State<Input_data> {
   final jumlah = TextEditingController();
 
   final dbC = Get.put(DatabaseController());
+
+  @override
+  void initState() {
+    setState(() {
+      namaEdit = widget.namaCustomer;
+    });
+    namaCustomer.text = widget.namaCustomer;
+    alamat.text = widget.alamat;
+    noHp.text = widget.noHp;
+    namaBarang.text = widget.namaBarang;
+    kode.text = widget.kode;
+    jenis.text = widget.jenis;
+    harga.text = widget.harga.toString();
+    jumlah.text = widget.jumlah.toString();
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -65,7 +104,7 @@ class _Input_dataState extends State<Input_data> {
                       width: 60,
                     ),
                     new Text(
-                      'Input Data',
+                      'Update Data',
                       style:
                           TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
@@ -180,7 +219,8 @@ class _Input_dataState extends State<Input_data> {
               ),
               GestureDetector(
                 onTap: () {
-                  dbC.tambahDBDataPembelian(
+                  dbC.editDBDataPembelian(
+                      namaEdit,
                       namaCustomer.text,
                       alamat.text,
                       noHp.text,
@@ -190,6 +230,7 @@ class _Input_dataState extends State<Input_data> {
                       int.parse(harga.text),
                       int.parse(jumlah.text));
                   Navigator.pop(context);
+                  Get.back();
                 },
                 child: Container(
                   width: 300,
@@ -200,7 +241,7 @@ class _Input_dataState extends State<Input_data> {
                   ),
                   child: Center(
                       child: Text(
-                    "Tambah",
+                    "Update",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
