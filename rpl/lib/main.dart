@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rpl/controller/auth_controller.dart';
+import 'package:rpl/controller/database_controller.dart';
 import 'home.dart';
 
 void main() async {
@@ -18,8 +19,8 @@ class MyApp extends StatelessWidget {
   MyApp({super.key});
   final email = TextEditingController();
   final password = TextEditingController();
-
-  final authC = Get.put(AuthController());
+  final authC = Get.put(AuthController(), permanent: true);
+  final dbC = Get.put(DatabaseController(), permanent: true);
 
   @override
   Widget build(BuildContext context) {

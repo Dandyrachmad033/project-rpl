@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rpl/controller/auth_controller.dart';
+import 'package:rpl/widget/primary_button.dart';
 import 'data_penjualan.dart';
-import 'navibar.dart';
 import 'data_keuangan.dart';
 import 'data_stock.dart';
 
 class Home extends StatelessWidget {
   final authC = Get.find<AuthController>();
-  final List<String> items = [
-    'Data Keuangan',
-    'Data Penjualan',
-    'Stock Barang'
-  ];
-  final List<int> colorCodes = [600, 400, 200];
-  final List screens = [Keuangan(), Penjualan(), 'asjd'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +51,30 @@ class Home extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.to(Keuangan());
+                      if (authC.emailUser == 'owner@gmail.com' ||
+                          authC.emailUser == 'ceo@gmail.com') {
+                        Get.to(Keuangan());
+                      } else {
+                        Get.defaultDialog(
+                          title: "Warning, Tidak Bisa Akses Data!",
+                          middleText:
+                              "Kamu bukan anggota yang bisa akses data keuangan!",
+                          backgroundColor: Colors.white,
+                          buttonColor: Colors.green[200],
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 20),
+                          confirm: GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: PrimaryButton(
+                              title: "okei",
+                              width: 100.0,
+                              height: 30.0,
+                            ),
+                          ),
+                        );
+                      }
                     },
                     child: Container(
                       height: 150,
@@ -90,7 +107,30 @@ class Home extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.to(Data_stock());
+                      if (authC.emailUser != 'admin@gmail.com' &&
+                          authC.emailUser != 'marketing@gmail.com') {
+                        Get.to(Data_stock());
+                      } else {
+                        Get.defaultDialog(
+                          title: "Warning, Tidak Bisa Akses Data!",
+                          middleText:
+                              "Kamu bukan anggota yang bisa akses data stok!",
+                          backgroundColor: Colors.white,
+                          buttonColor: Colors.green[200],
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 20),
+                          confirm: GestureDetector(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: PrimaryButton(
+                              title: "okei",
+                              width: 100.0,
+                              height: 30.0,
+                            ),
+                          ),
+                        );
+                      }
                     },
                     child: Container(
                       height: 150,

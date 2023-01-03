@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:rpl/add_keuangan.dart';
+import 'package:rpl/controller/auth_controller.dart';
+import 'package:rpl/widget/primary_button.dart';
 import 'add_penjualan.dart';
 
 class Keuangan extends StatefulWidget {
@@ -10,6 +13,8 @@ class Keuangan extends StatefulWidget {
 }
 
 class _KeuanganState extends State<Keuangan> {
+  final authC = Get.find<AuthController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,18 +53,16 @@ class _KeuanganState extends State<Keuangan> {
                     SizedBox(
                       width: 30,
                     ),
-                    
                   ],
                 ),
               ),
-             SizedBox(
-              height: 200,
-             ),
-             Container(
-              height: 65,
-              color: Colors.white,
-              child: Row(
-                children: [
+              SizedBox(
+                height: 200,
+              ),
+              Container(
+                height: 65,
+                color: Colors.white,
+                child: Row(children: [
                   new Text(
                     ' Expenses',
                     style: TextStyle(
@@ -70,13 +73,39 @@ class _KeuanganState extends State<Keuangan> {
                   SizedBox(
                     width: 250,
                   ),
-
-                  new IconButton(onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Add_Keuangan()));
-                  }, icon: Icon(Icons.add, color: Colors.black, size: 30,)),
-                ]
-              ),
-             )
+                  new IconButton(
+                      onPressed: () {
+                        if (authC.emailUser == 'owner@gmail.com') {
+                          Get.to(() => Add_Keuangan());
+                        } else {
+                          Get.defaultDialog(
+                            title: "Warning, Tidak Bisa Mengolah Data!",
+                            middleText:
+                                "Kamu bukan anggota yang bisa mengolah data keuangan!",
+                            backgroundColor: Colors.white,
+                            buttonColor: Colors.green[200],
+                            contentPadding: EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 20),
+                            confirm: GestureDetector(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: PrimaryButton(
+                                title: "okei",
+                                width: 100.0,
+                                height: 30.0,
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.black,
+                        size: 30,
+                      )),
+                ]),
+              )
             ],
           ),
         ),

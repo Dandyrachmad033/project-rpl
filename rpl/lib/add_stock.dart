@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'add_penjualan.dart';
+
 class Add_stock extends StatefulWidget {
   const Add_stock({super.key});
 
@@ -8,6 +9,22 @@ class Add_stock extends StatefulWidget {
 }
 
 class _Add_stockState extends State<Add_stock> {
+  final namaBarang = TextEditingController();
+  final kode = TextEditingController();
+  final jenis = TextEditingController();
+  final harga = TextEditingController();
+  final jumlah = TextEditingController();
+
+  @override
+  void dispose() {
+    namaBarang.dispose();
+    kode.dispose();
+    jenis.dispose();
+    harga.dispose();
+    jumlah.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,6 +97,7 @@ class _Add_stockState extends State<Add_stock> {
                           ),
                           Inputan(
                             Hinttext: 'Masukkan Nama Barang',
+                            controller: namaBarang,
                           ),
                           new Text(
                             'Kode Barang',
@@ -88,6 +106,7 @@ class _Add_stockState extends State<Add_stock> {
                           ),
                           Inputan(
                             Hinttext: 'Masukkan Kode Barang',
+                            controller: kode,
                           ),
                           new Text(
                             'Jenis Barang',
@@ -96,25 +115,26 @@ class _Add_stockState extends State<Add_stock> {
                           ),
                           Inputan(
                             Hinttext: 'Masukkan Jenis Barang',
+                            controller: jenis,
                           ),
-                           new Text(
+                          new Text(
                             'Harga',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           Inputan(
                             Hinttext: 'Masukkan Harga Barang',
+                            controller: harga,
                           ),
-
-                           new Text(
+                          new Text(
                             'Jumlah Stock barang',
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                           Inputan(
                             Hinttext: 'Masukkan Jumlah Stock Barang',
+                            controller: jumlah,
                           ),
-                          
                         ],
                       ),
                     ),
@@ -132,7 +152,7 @@ class _Add_stockState extends State<Add_stock> {
                   ),
                   child: Center(
                       child: Text(
-                    "Submit",
+                    "Tambah",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,

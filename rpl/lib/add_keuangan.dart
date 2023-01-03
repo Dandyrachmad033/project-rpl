@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'add_penjualan.dart';
+
 class Add_Keuangan extends StatefulWidget {
   const Add_Keuangan({super.key});
 
@@ -8,10 +9,22 @@ class Add_Keuangan extends StatefulWidget {
 }
 
 class _Add_KeuanganState extends State<Add_Keuangan> {
+  final jumlahUang = TextEditingController();
+  final tipe = TextEditingController();
+  final keterangan = TextEditingController();
+
+  @override
+  void dispose() {
+    jumlahUang.dispose();
+    tipe.dispose();
+    keterangan.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: SizedBox(
         height: MediaQuery.of(context).size.height,
         child: SingleChildScrollView(
           child: Column(
@@ -52,7 +65,7 @@ class _Add_KeuanganState extends State<Add_Keuangan> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  height: 280,
+                  height: MediaQuery.of(context).size.height * 0.5,
                   width: 350,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
@@ -80,6 +93,7 @@ class _Add_KeuanganState extends State<Add_Keuangan> {
                           ),
                           Inputan(
                             Hinttext: 'Masukkan Jumlah uang',
+                            controller: jumlahUang,
                           ),
                           new Text(
                             'Pengeluaran/Pemasukan',
@@ -88,6 +102,7 @@ class _Add_KeuanganState extends State<Add_Keuangan> {
                           ),
                           Inputan(
                             Hinttext: 'Masukkan Pengeluaran/Pemasukan',
+                            controller: tipe,
                           ),
                           new Text(
                             'Keterangan',
@@ -96,8 +111,23 @@ class _Add_KeuanganState extends State<Add_Keuangan> {
                           ),
                           Inputan(
                             Hinttext: 'Masukkan keterangan',
+                            controller: keterangan,
                           ),
-                          
+                          new Text(
+                            'Tanggal',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2021),
+                                  lastDate: DateTime(2022),
+                                );
+                              },
+                              child: Text('Pilih Tanggal'))
                         ],
                       ),
                     ),
